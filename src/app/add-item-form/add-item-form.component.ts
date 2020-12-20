@@ -10,7 +10,7 @@ import { BudgetItem } from 'src/shared/models/budget-list.model';
 export class AddItemFormComponent implements OnInit {
 
 
-  @Input() item: BudgetItem = new BudgetItem('', null);
+  @Input() item: BudgetItem = new BudgetItem('', 0);
   @Output() formSubmit: EventEmitter<BudgetItem> = new EventEmitter<BudgetItem>(); 
 
   constructor() { }

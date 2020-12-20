@@ -8,10 +8,15 @@ import { EditItemModalComponent } from '../edit-item-modal/edit-item-modal.compo
   templateUrl: './budget-item-list.component.html',
   styleUrls: ['./budget-item-list.component.scss']
 })
+
+
 export class BudgetItemListComponent implements OnInit {
+
 
   @Input() budgetItems: BudgetItem[];
   @Output() delete: EventEmitter<BudgetItem> = new EventEmitter<BudgetItem>();
+  @Output() update: EventEmitter<UpdateEvent> = new EventEmitter<UpdateEvent>();
+
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -31,13 +36,19 @@ onCardClicked(item: BudgetItem) {
 
   dialogRef.afterClosed().subscribe(result => {
     if(result) {
-      this.budgetItems[this.budgetItems.indexOf(item)] = result;
+      //this.budgetItems[this.budgetItems.indexOf(item)] = result;
+      this.update.emit({
+        old:item,
+        new: result
+      });
     }
   })
 
 
 }
+}
 
-
-
+export interface UpdateEvent {
+  old:BudgetItem;
+  new:BudgetItem;
 }
